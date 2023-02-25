@@ -152,6 +152,9 @@ void jtp_play_midi_song(char * midifilename)
 #ifdef USE_DIRECTX_SYSCALLS
   jtp_DXPlayMIDISong(midifilename);
 #endif
+#ifdef USE_DOS_SYSCALLS
+  jtp_DOSPlayMIDISong(midifilename);
+#endif
 #ifdef USE_SDL_SYSCALLS
   jtp_SDLPlayMIDISong(midifilename);
 #endif
@@ -179,6 +182,9 @@ void jtp_stop_music()
 #ifdef USE_DIRECTX_SYSCALLS
   jtp_DXStopMusic();
 #endif
+#ifdef USE_DOS_SYSCALLS
+  jtp_DOSStopMusic();
+#endif
 #ifdef USE_SDL_SYSCALLS
   jtp_SDLStopMusic();
 #endif
@@ -190,7 +196,7 @@ int jtp_is_music_playing()
   return(jtp_DXIsMusicPlaying());
 #endif
 #ifdef USE_DOS_SYSCALLS
-  return(1);
+  return(jtp_DOSIsMusicPlaying());
 #endif
 #ifdef USE_SDL_SYSCALLS
   return(jtp_SDLIsMusicPlaying());
@@ -208,6 +214,9 @@ void jtp_play_wave_sound
 {
 #ifdef USE_DIRECTX_SYSCALLS
   jtp_DXPlayWaveSound(wavefilename, samples_per_sec, bits_per_sample, nchannels);
+#endif
+#ifdef USE_DOS_SYSCALLS
+  jtp_DOSPlayWaveSound(wavefilename, samples_per_sec, bits_per_sample, nchannels);
 #endif
 #ifdef USE_SDL_SYSCALLS
   jtp_SDLPlayWaveSound(wavefilename, samples_per_sec, bits_per_sample, nchannels);

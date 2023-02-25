@@ -7,6 +7,7 @@ DJGPP/
 set_djgpp_env.bat
 start_dosbox.sh
 dosbox.conf
+compile.bat
 
 dat/DATA
 dat/DATA.BAS
@@ -32,7 +33,6 @@ include/PM.H
 include/PORTIO.H
 include/TILE.H
 include/VIS_TAB.H
-src/BUILD.LOG
 src/DAT.TAG
 src/DGN_FLEX.C
 src/DGN_MAIN.C

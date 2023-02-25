@@ -6,6 +6,7 @@
 
 #include "hack.h"
 #include "dlb.h"
+#include "alsound.h"
 
 #ifndef NO_SIGNAL
 #include <signal.h>
@@ -88,6 +89,7 @@ main(argc,argv)
 int argc;
 char *argv[];
 {
+     al_sound_init();
      pcmain(argc,argv);
 #ifdef LAN_FEATURES
      init_lan_features();

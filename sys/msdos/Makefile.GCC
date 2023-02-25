@@ -69,7 +69,9 @@ LIBS = -lpc
 TERMLIB =
 #TERMLIB = -ltermc
 
-LIBRARIES = $(LIBS) $(TERMLIB)
+ALLEGROLIB = -lalleg
+
+LIBRARIES = $(LIBS) $(TERMLIB) $(ALLEGROLIB)
 
 #
 #  Yacc/Lex ... if you got 'em.
@@ -104,7 +106,7 @@ LS = ls -1		# ls.exe from djgpp distribution
 # set SUPPRESS_GRAPHICS to Y
 # (Note: binary will require ANSI.SYS driver or equivalent loaded)
 # SUPPRESS_GRAPHICS = Y
-SUPPRESS_GRAPHICS = 
+SUPPRESS_GRAPHICS =
 
 #############################################################################
 #
@@ -177,13 +179,13 @@ TEXTIO       =
 TEXTIO2      =
 PLANAR_TIB   =
 OVERVIEW_TIB =
-TILEUTIL     = 
-TILEFILES    = 
-TILEFILES2   = 
-GIFREADERS   = 
-GIFREAD2     = 
-PPMWRITERS   = 
-PPMWRIT2     = 
+TILEUTIL     =
+TILEFILES    =
+TILEFILES2   =
+GIFREADERS   =
+GIFREAD2     =
+PPMWRITERS   =
+PPMWRIT2     =
 
 else
 
@@ -240,7 +242,7 @@ VOBJ19 = trap.o     u_init.o   uhitm.o    vault.o    vision.o
 VOBJ20 = vis_tab.o  weapon.o   were.o	  wield.o    windows.o
 VOBJ21 = wintty.o   wizard.o   worm.o	  worn.o     write.o
 VOBJ22 = zap.o	    light.o    dlb.o      dig.o      teleport.o
-VOBJ23 = region.o
+VOBJ23 = region.o   alsound.o
 VOBJ24 = winjtp.o jtp_win.o jtp_def.o jtp_gen.o jtp_gfl.o jtp_gra.o
 VOBJ25 = jtp_mou.o jtp_txt.o jtp_dos.o jtp_keys.o
 
@@ -296,6 +298,7 @@ HACK_H	   = $(CONFIG_H)	$(DUNGEON_H)	    $(DECL_H)	      \
 	      $(INCL)\engrave.h	 $(INCL)\rect.h	  \
 	       $(INCL)\trampoli.h $(INCL)\hack.h $(REGION_H)
 DLB_H      = $(INCL)\dlb.h
+ALLEGRO_H  = $(INCL)\alsound.h
 
 ifeq ($(SUPPRESS_GRAPHICS),Y)
 TILE_H     =
@@ -466,14 +469,14 @@ spotless: clean
 	if exist $(SRC)\dlb_main.c del $(SRC)\dlb_main.c
 	if exist $(SRC)\dgn_main.c del $(SRC)\dgn_main.c
 	if exist $(SRC)\winjtp.c   del $(SRC)\winjtp.c
-	if exist $(SRC)\jtp_def.c  del $(SRC)\jtp_def.c	
+	if exist $(SRC)\jtp_def.c  del $(SRC)\jtp_def.c
 	if exist $(SRC)\jtp_gen.c  del $(SRC)\jtp_gen.c
 	if exist $(SRC)\jtp_gfl.c  del $(SRC)\jtp_gfl.c
 	if exist $(SRC)\jtp_gra.c  del $(SRC)\jtp_gra.c
 	if exist $(SRC)\jtp_txt.c  del $(SRC)\jtp_txt.c
 	if exist $(SRC)\jtp_mou.c  del $(SRC)\jtp_mou.c
-	if exist $(SRC)\jtp_win.c  del $(SRC)\jtp_win.c	
-	if exist $(SRC)\jtp_dos.c  del $(SRC)\jtp_dos.c	
+	if exist $(SRC)\jtp_win.c  del $(SRC)\jtp_win.c
+	if exist $(SRC)\jtp_dos.c  del $(SRC)\jtp_dos.c
 	if exist $(SRC)\jtp_keys.c del $(SRC)\jtp_keys.c
 	if exist $(SRC)\wintty.c   del $(SRC)\wintty.c
 	if exist $(SRC)\topl.c	   del $(SRC)\topl.c
@@ -691,7 +694,7 @@ $(INCL)\dgn_comp.h: $(SSHR)\dgn_comp.h
 
 dgn_$(LEX).c: $(SSHR)\dgn_lex.c
 	copy $(SSHR)\dgn_lex.c $@
- 
+
 endif
 
 #
@@ -764,7 +767,7 @@ tile2bin.exe: tile2bin.o $(TEXTIO)
 til2bin2.exe: til2bin2.o $(TEXTIO2)
 	$(LINK) $(LFLAGS) -otil2bin2.exe til2bin2.o $(TEXTIO2)
 
-thintile.exe: thintile.o 
+thintile.exe: thintile.o
 	$(LINK) $(LFLAGS) -othintile.exe thintile.o
 
 thintile.c:  $(WSHR)\thintile.c
@@ -797,7 +800,7 @@ tiletex2.o:  $(CONFIG_H) $(INCL)\tile.h $(WSHR)\tiletext.c
 
 tiletxt.o: $(CONFIG_H)	$(INCL)\tile.h tilemap.c
 	$(CC) $(CFLAGS) -DTILETEXT -o$@ tilemap.c
-  
+
 tiletxt2.o: $(CONFIG_H)	$(INCL)\tile.h tilemap.c
 	$(CC) $(CFLAGS) -DTILETEXT -DTILE_X=8 -o$@ tilemap.c
 #
@@ -933,7 +936,7 @@ sp_lev.tag: utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	lev_comp wizard.des
 	cd $(SRC)
 	echo sp_levs done > sp_lev.tag
-	
+
 $(DAT)\dungeon:	  utility.tag  $(DAT)\dungeon.def
 	@copy $(SRC)\dgn_comp.exe $(DAT)\dgn_comp.exe
 	makedefs -e
@@ -1096,6 +1099,7 @@ winjtp.o : $(INCL)\jtp_def.h $(INCL)\jtp_win.h $(INCL)\winjtp.h $(WIN)\jtp\winjt
 # src dependencies
 allmain.o:  $(HACK_H)
 alloc.o:    $(CONFIG_H)
+alsound.o : $(ALLEGRO_H)
 apply.o:    $(HACK_H) $(INCL)\edog.h
 artifact.o: $(HACK_H) $(INCL)\artifact.h $(INCL)\artilist.h
 attrib.o:   $(HACK_H) $(INCL)\artifact.h

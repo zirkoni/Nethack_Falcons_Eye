@@ -20,6 +20,7 @@
 #endif
 #ifdef USE_DOS_SYSCALLS
 #include "jtp_dos.h"
+#include "alsound.h"
 #endif
 #ifdef USE_SDL_SYSCALLS
 #include "jtp_sdl.h"
@@ -7797,6 +7798,12 @@ jtp_read_options
           sprintf(tempbuffer,"%s%s%s\0", jtp_game_path, JTP_SOUND_DIRECTORY, (jtp_event_sounds[jtp_n_event_sounds-1])->filename);
           strcpy((jtp_event_sounds[jtp_n_event_sounds-1])->filename, tempbuffer);
         }
+
+        /*
+        if (soundtype == JTP_EVENT_SOUND_TYPE_WAVE || soundtype == JTP_EVENT_SOUND_TYPE_LONG_WAVE)
+        {
+          al_sound_load_wave(jtp_event_sounds[jtp_n_event_sounds-1]->filename);
+        }*/
 
         /*sprintf(tempbuffer, "Mapped [%s] to [%s]\n", (jtp_event_sounds[jtp_n_event_sounds-1])->searchpattern, (jtp_event_sounds[jtp_n_event_sounds-1])->filename);
         jtp_write_log_message(tempbuffer);*/

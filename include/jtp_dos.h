@@ -32,6 +32,12 @@ void jtp_DOSReadMouse(jtp_screen_t *);
 int jtp_DOSGetch();
 int jtp_DOSKbHit();
 
+/* Sound playing */
+void jtp_DOSPlayMIDISong(char *);
+void jtp_DOSStopMusic();
+int jtp_DOSIsMusicPlaying();
+void jtp_DOSPlayWaveSound(char *, int, int, int);
+
 extern short int jtp_dos_mousex, jtp_dos_mousey, jtp_dos_mouseb;
 
 #endif

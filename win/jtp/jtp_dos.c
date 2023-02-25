@@ -15,6 +15,7 @@
 #include <sys/nearptr.h>  /* DJGPP specific file */
 #include "jtp_gra.h"      /* For jtp_screen_t structure definition */
 #include "jtp_dos.h"
+#include "alsound.h"      /* Allegro sound */
 
 #define PACKED __attribute__ ((packed))
 #pragma pack(1)
@@ -431,6 +432,38 @@ jtp_DOSExitGraphicsMode()
 {
   __djgpp_nearptr_disable();
   jtp_DOSGoBackToTextMode();
+}
+
+
+/*----------------------------------------------------------
+ Sound & Music
+-----------------------------------------------------------*/
+void jtp_DOSPlayMIDISong(char * midifilename)
+{
+  al_sound_play_midi(midifilename);
+}
+
+void jtp_DOSStopMusic()
+{
+  al_sound_stop_midi();
+}
+
+// Returns 0 if no MIDI is plaing.
+int jtp_DOSIsMusicPlaying()
+{
+  return al_sound_is_music_playing();
+}
+
+// The .raw samples should be converted to .wav
+void jtp_DOSPlayWaveSound
+(
+  char * wavefilename,
+  int samples_per_sec,
+  int bits_per_sample,
+  int nchannels
+)
+{
+  al_sound_play_wave(wavefilename);
 }
 
 #endif
