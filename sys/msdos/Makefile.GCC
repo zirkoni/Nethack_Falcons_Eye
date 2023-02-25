@@ -23,7 +23,7 @@
 
 GAME = nethack
 # The GNU Make has a problem if you include a drive spec below (unfortunately).
-GAMEDIR = \nethack\compiled
+GAMEDIR = C:\compiled
 
 #
 # Directories, gcc likes unix style directory specs
@@ -96,8 +96,8 @@ USE_DLB = Y
 # djgpp ships with an ls.exe command so changing this should
 # not be necessary
 
-#LS = ls -1		# ls.exe from djgpp distribution
-LS = dir /l/b		# DOS command
+LS = ls -1		# ls.exe from djgpp distribution
+#LS = dir /l/b		# DOS command
 
 # To build a binary without any graphics
 # suitable for blind players,
@@ -242,7 +242,7 @@ VOBJ21 = wintty.o   wizard.o   worm.o	  worn.o     write.o
 VOBJ22 = zap.o	    light.o    dlb.o      dig.o      teleport.o
 VOBJ23 = region.o
 VOBJ24 = winjtp.o jtp_win.o jtp_def.o jtp_gen.o jtp_gfl.o jtp_gra.o
-VOBJ25 = jtp_mou.o jtp_txt.o jtp_dos.o
+VOBJ25 = jtp_mou.o jtp_txt.o jtp_dos.o jtp_keys.o
 
 
 SOBJ   = msdos.o    sound.o    sys.o	  tty.o	     unix.o    video.o \
@@ -474,6 +474,7 @@ spotless: clean
 	if exist $(SRC)\jtp_mou.c  del $(SRC)\jtp_mou.c
 	if exist $(SRC)\jtp_win.c  del $(SRC)\jtp_win.c	
 	if exist $(SRC)\jtp_dos.c  del $(SRC)\jtp_dos.c	
+	if exist $(SRC)\jtp_keys.c del $(SRC)\jtp_keys.c
 	if exist $(SRC)\wintty.c   del $(SRC)\wintty.c
 	if exist $(SRC)\topl.c	   del $(SRC)\topl.c
 	if exist $(SRC)\getline.c  del $(SRC)\getline.c
@@ -1079,6 +1080,10 @@ jtp_txt.o : $(INCL)\jtp_def.h $(INCL)\jtp_txt.h $(WIN)\jtp\jtp_txt.c
 jtp_mou.o : $(INCL)\jtp_def.h $(INCL)\jtp_mou.h $(WIN)\jtp\jtp_mou.c
 	copy $(WIN)\jtp\jtp_mou.c .
 	$(CC) $(CFLAGS) -DUSE_DOS_SYSCALLS -o$@ jtp_mou.c
+
+jtp_keys.o : $(INCL)\jtp_def.h $(INCL)\jtp_keys.h $(WIN)\jtp\jtp_keys.c
+	copy $(WIN)\jtp\jtp_keys.c .
+	$(CC) $(CFLAGS) -DUSE_DOS_SYSCALLS -o$@ jtp_keys.c
 
 jtp_win.o : $(INCL)\jtp_def.h $(INCL)\jtp_gen.h $(INCL)\jtp_gfl.h $(INCL)\jtp_gra.h $(INCL)\jtp_txt.h $(INCL)\jtp_mou.h $(INCL)\jtp_win.h $(WIN)\jtp\jtp_win.c
 	copy $(WIN)\jtp\jtp_win.c .
