@@ -919,9 +919,11 @@ void jtp_play_event_sound(const char * str)
     if (strstr(str, (jtp_event_sounds[i])->searchpattern))
     {
       if ((jtp_event_sounds[i])->soundtype == JTP_EVENT_SOUND_TYPE_WAVE)      
-        jtp_play_wave_sound((jtp_event_sounds[i])->filename, 44100, 16, 1);
+        //jtp_play_wave_sound((jtp_event_sounds[i])->filename, 44100, 16, 1);
+        jtp_play_wave_sound((jtp_event_sounds[i])->filename, (jtp_event_sounds[i])->index, 16, 1);
       else if ((jtp_event_sounds[i])->soundtype == JTP_EVENT_SOUND_TYPE_LONG_WAVE)
-        jtp_play_wave_sound((jtp_event_sounds[i])->filename, 22050, 8, 1);
+        //jtp_play_wave_sound((jtp_event_sounds[i])->filename, 22050, 8, 1);
+        jtp_play_wave_sound((jtp_event_sounds[i])->filename, (jtp_event_sounds[i])->index, 8, 1);
       else if ((jtp_event_sounds[i])->soundtype == JTP_EVENT_SOUND_TYPE_MIDI)
         jtp_play_midi_song((jtp_event_sounds[i])->filename);
       else if ((jtp_event_sounds[i])->soundtype == JTP_EVENT_SOUND_TYPE_CD_AUDIO)
@@ -7799,11 +7801,10 @@ jtp_read_options
           strcpy((jtp_event_sounds[jtp_n_event_sounds-1])->filename, tempbuffer);
         }
 
-        /*
         if (soundtype == JTP_EVENT_SOUND_TYPE_WAVE || soundtype == JTP_EVENT_SOUND_TYPE_LONG_WAVE)
         {
-          al_sound_load_wave(jtp_event_sounds[jtp_n_event_sounds-1]->filename);
-        }*/
+          al_sound_load_wave(jtp_event_sounds[jtp_n_event_sounds-1]->filename, &(jtp_event_sounds[jtp_n_event_sounds-1]->index));
+        }
 
         /*sprintf(tempbuffer, "Mapped [%s] to [%s]\n", (jtp_event_sounds[jtp_n_event_sounds-1])->searchpattern, (jtp_event_sounds[jtp_n_event_sounds-1])->filename);
         jtp_write_log_message(tempbuffer);*/
@@ -7811,6 +7812,7 @@ jtp_read_options
     }
   }
   fclose(f);
+  al_sound_load_wave_finish();
 }
 
 void

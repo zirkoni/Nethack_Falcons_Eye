@@ -463,7 +463,7 @@ void jtp_DOSPlayWaveSound
   int nchannels
 )
 {
-  al_sound_play_wave(wavefilename);
+  al_sound_play_wave(wavefilename, samples_per_sec); // NB: samples_per_sec = index to wave file
 }
 
 #endif

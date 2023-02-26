@@ -171,6 +171,7 @@ typedef struct {
   char * searchpattern;
   int soundtype;
   char * filename;
+  int index;
 } jtp_event_sound;
 
 /* Variables provided by the Falcon's Eye interface */

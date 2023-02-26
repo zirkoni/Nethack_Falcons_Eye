@@ -95,6 +95,7 @@ char *argv[];
      init_lan_features();
 #endif
      moveloop();
+	 al_sound_close();
      nethack_exit(EXIT_SUCCESS);
      /*NOTREACHED*/
      return 0;
