@@ -33,6 +33,22 @@ and adds new graphics and features. Please see the Falcon's Eye
 web site at http://www.hut.fi/~jtpelto2/nethack.html for the 
 latest news about Falcon's Eye.
 
+#######################################################################
+DOS Sound support
+
+Source code has been modified to support MIDI and WAV sounds under DOS:
+- implemented by using Allegro 4 library
+- only DJGPP build has been tested
+- the raw samples were converted to wav (cat.raw replaced with completely
+  new source)
+
+How to compile?
+- DJGPP
+- Allegro 4 library (v4.2.3.1 has been tested)
+- Follow the official compilation instructions (sys/msdos/Install.dos)
+
+#######################################################################
+
 -----------------------------------------------------------------------
 NOTICE:
 All the files in this source distribution whose modification dates are
